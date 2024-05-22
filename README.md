@@ -1,6 +1,6 @@
 # Programmieren im Mathematikunterricht - Projekt
 
-Dies ist das GitHub-Repository für die Implementierung des Projekts für das Fach "Programmieren im Mathematikunterricht"!
+Dies ist das GitHub-Repository für die Implementierung des Projekts für das Fach "Programmieren im Mathematikunterricht"! Implementiert wurde ein kleines Spiel, bei der ein Spieler den kürzesten Pfad zwischen zwei Punkten finden muss. 
 
 ## Ersteller
 - Manfred Trauner
