@@ -27,7 +27,7 @@ class Node:
         self.col = col
         self.x = col * CELL_WIDTH
         self.y = row * CELL_HEIGHT
-        self.color = WHITE
+        self.color = "#ffffff"
         self.neighbors = []
         self.distance = float('inf')
         self.previous = None
@@ -81,14 +81,14 @@ def reconstruct_path(end):
     current = end
     while current.previous:
         current = current.previous
-        if current.color != GREEN:
-            current.color = BLUE
+        if current.color != "#00ff99":
+            current.color = "#edffba"
 
 def draw_grid():
     for i in range(ROWS):
-        pygame.draw.line(screen, GREY, (0, i * CELL_HEIGHT), (WIDTH, i * CELL_HEIGHT))
+        pygame.draw.line(screen, "#8c8c8c", (0, i * CELL_HEIGHT), (WIDTH, i * CELL_HEIGHT))
         for j in range(COLS):
-            pygame.draw.line(screen, GREY, (j * CELL_WIDTH, 0), (j * CELL_WIDTH, HEIGHT))
+            pygame.draw.line(screen, "#8c8c8c", (j * CELL_WIDTH, 0), (j * CELL_WIDTH, HEIGHT))
 
 def start_the_game():
     grid = [[Node(i, j) for j in range(COLS)] for i in range(ROWS)]
@@ -102,7 +102,7 @@ def start_the_game():
     running = True
 
     while running:
-        screen.fill(WHITE)
+        screen.fill("#ffffff")
         for row in grid:
             for node in row:
                 node.draw()
@@ -153,7 +153,6 @@ def start_the_game():
                             node.add_neighbors(grid)
 
 def main():
-    # Create a custom theme
     theme = pygame_menu.themes.THEME_SOLARIZED.copy()
     theme.title_font = pygame_menu.font.FONT_COMIC_NEUE
     theme.title_font_size = 50
@@ -179,7 +178,6 @@ def main():
 
     # Main loop
     while True:
-        #screen.fill(AZURE)
         events = pygame.event.get()
         for event in events:
             if event.type == pygame.QUIT:
