@@ -56,7 +56,7 @@ def dijkstra(grid, start, end):
     visited = set()
     
     while pq:
-        current_node = heapq.heappop(pq)
+        current_distance, current_node = heapq.heappop(pq)
         
         if current_node in visited:
             continue
@@ -108,6 +108,10 @@ def start_the_game():
     end.color = "#ff0000"
 
     block_counter = 0  # Counter for user-placed blocks
+    path_length_dijkstra = 0 # Counter for shortes path
+
+    dijkstra_was_calculated = False
+
 
     running = True
 
@@ -121,6 +125,12 @@ def start_the_game():
         # Display block counter
         block_text = FONT.render("Blocks placed: " + str(block_counter), True, (0, 0, 0))
         screen.blit(block_text, (10, 10))
+
+        if dijkstra_was_calculated: 
+            # Display the length of the shortest path
+            length_text = FONT.render("Shortest path length: " + str(path_length_dijkstra - 1), True, (0, 0, 0))
+            screen.blit(length_text, (520, 10))
+
 
         pygame.display.update()
 
@@ -150,8 +160,16 @@ def start_the_game():
                     for row in grid:
                         for node in row:
                             node.add_neighbors(grid)
-                    dijkstra(grid, start, end)
-                    reconstruct_path(end)
+                    if dijkstra(grid, start, end):
+                        reconstruct_path(end)
+                        # Calculate the length of the shortest path
+                        current = end
+                        while current.previous:
+                            path_length_dijkstra += 1
+                            current = current.previous
+
+                        dijkstra_was_calculated = True
+
 
 def main():
     theme = pygame_menu.themes.THEME_SOLARIZED.copy()
@@ -170,6 +188,7 @@ def main():
     menu.add.label("Your task is to find the shortest path between")
     menu.add.label("the red and the green block! Try to find the shortest")
     menu.add.label("path and beat the computer.")
+    
     menu.add.label(" ")
     menu.add.label("Instructions:")
     menu.add.label("Left-click on cells to create walls (black).")
