@@ -199,6 +199,7 @@ def start_the_game():
 
 
 def main():
+    # General menu settings
     theme = pygame_menu.themes.THEME_SOLARIZED.copy()
     theme.title_font = pygame_menu.font.FONT_COMIC_NEUE
     theme.title_font_size = 50
@@ -210,7 +211,7 @@ def main():
     theme.widget_font_color = "#000000"
     theme.selection_color = "#ff0000"
 
-    # Create the menu
+    # Create the menu with instructions
     menu = pygame_menu.Menu('Pathfinding Adventure', WIDTH, HEIGHT, theme=theme)
     menu.add.label("Your task is to find the shortest path between")
     menu.add.label("the red and the green block! Try to find the shortest")
