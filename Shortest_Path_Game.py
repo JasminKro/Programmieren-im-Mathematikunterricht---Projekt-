@@ -2,6 +2,7 @@ import pygame
 import pygame_menu
 import heapq
 import sys
+import random
 
 # Initialize Pygame
 pygame.init()
@@ -55,7 +56,7 @@ def dijkstra(grid, start, end):
     visited = set()
     
     while pq:
-        current_distance, current_node = heapq.heappop(pq)
+        current_node = heapq.heappop(pq)
         
         if current_node in visited:
             continue
@@ -81,7 +82,7 @@ def reconstruct_path(end):
     current = end
     while current.previous:
         current = current.previous
-        if current.color != "#00ff99":
+        if current.color != "#00ff99" and current.color != "#ff0000":
             current.color = "#edffba"
 
 def draw_grid():
@@ -97,8 +98,17 @@ def start_the_game():
         for node in row:
             node.add_neighbors(grid)
 
-    start = None
-    end = None
+    start = random.choice(random.choice(grid))
+    end = random.choice(random.choice(grid))
+    
+    while end == start:
+        end = random.choice(random.choice(grid))
+
+    start.color = "#00ff99"
+    end.color = "#ff0000"
+
+    block_counter = 0  # Counter for user-placed blocks
+
     running = True
 
     while running:
@@ -107,6 +117,11 @@ def start_the_game():
             for node in row:
                 node.draw()
         draw_grid()
+
+        # Display block counter
+        block_text = FONT.render("Blocks placed: " + str(block_counter), True, (0, 0, 0))
+        screen.blit(block_text, (10, 10))
+
         pygame.display.update()
 
         for event in pygame.event.get():
@@ -118,39 +133,25 @@ def start_the_game():
                 pos = pygame.mouse.get_pos()
                 row, col = pos[1] // CELL_HEIGHT, pos[0] // CELL_WIDTH
                 node = grid[row][col]
-                if not start and node != end:
-                    start = node
-                    start.color = "#00ff99"
-                elif not end and node != start:
-                    end = node
-                    end.color = "#ff0000"
-                elif node != end and node != start:
+                if node != start and node != end and not node.wall:
                     node.wall = True
                     node.color = "#000000"
+                    block_counter += 1
             elif pygame.mouse.get_pressed()[2]:  # Right-click
                 pos = pygame.mouse.get_pos()
                 row, col = pos[1] // CELL_HEIGHT, pos[0] // CELL_WIDTH
                 node = grid[row][col]
-                node.wall = False
-                node.color = "#ffffff"
-                if node == start:
-                    start = None
-                elif node == end:
-                    end = None
+                if node != start and node != end and node.wall:
+                    node.wall = False
+                    node.color = "#ffffff"
+                    block_counter -= 1  # Decrement block counter
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_SPACE and start and end:
+                if event.key == pygame.K_SPACE:
                     for row in grid:
                         for node in row:
                             node.add_neighbors(grid)
                     dijkstra(grid, start, end)
                     reconstruct_path(end)
-                if event.key == pygame.K_r:
-                    start = None
-                    end = None
-                    grid = [[Node(i, j) for j in range(COLS)] for i in range(ROWS)]
-                    for row in grid:
-                        for node in row:
-                            node.add_neighbors(grid)
 
 def main():
     theme = pygame_menu.themes.THEME_SOLARIZED.copy()
@@ -166,9 +167,11 @@ def main():
 
     # Create the menu
     menu = pygame_menu.Menu('Pathfinding Adventure', WIDTH, HEIGHT, theme=theme)
-
+    menu.add.label("Your task is to find the shortest path between")
+    menu.add.label("the red and the green block! Try to find the shortest")
+    menu.add.label("path and beat the computer.")
+    menu.add.label(" ")
     menu.add.label("Instructions:")
-    menu.add.label("Left-click to place start (green) and end (red) points.")
     menu.add.label("Left-click on cells to create walls (black).")
     menu.add.label("Right-click on cells to remove walls.")
     menu.add.label("Press SPACE to find the shortest path (blue).")

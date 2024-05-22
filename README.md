@@ -7,4 +7,6 @@ Philip Hallwirth
 Jasmin Kropshofer
 
 
+TODO: leider geht das displayn vom shortest path noch nicht (wenn man space drückt, sollte es den user input überschreiben), hab mich noch nicht damit beschäftigt
+
 TODO: erklären, was unser Spiel eigentlich machen soll.
