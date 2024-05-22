@@ -221,7 +221,7 @@ def main():
     menu.add.label("Instructions:")
     menu.add.label("Left-click on cells to create walls (black).")
     menu.add.label("Right-click on cells to remove walls.")
-    menu.add.label("Press SPACE to find the shortest path (blue).")
+    menu.add.label("Press SPACE to find the shortest path (yellow).")
     menu.add.label("Press 'R' to reset the grid.")
     menu.add.button('Start Game', start_the_game)
     menu.add.button('Quit', pygame_menu.events.EXIT)
