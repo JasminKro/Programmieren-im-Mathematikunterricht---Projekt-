@@ -1,4 +1,5 @@
 import pygame
+import pygame_menu
 import heapq
 import sys
 
@@ -11,17 +12,13 @@ ROWS, COLS = 20, 20
 CELL_WIDTH = WIDTH // COLS
 CELL_HEIGHT = HEIGHT // ROWS
 
-# Colors
-WHITE = (255, 255, 255)
-BLACK = (0, 0, 0)
-RED = (255, 0, 0)
-GREEN = (0, 255, 0)
-BLUE = (0, 0, 255)
-GREY = (128, 128, 128)
+# Fonts
+FONT = pygame.font.SysFont('comic_sans', 24)
+BIG_FONT = pygame.font.SysFont('comic_sans', 36)
 
 # Initialize the screen
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption("Dijkstra's Algorithm Visualization")
+pygame.display.set_caption("Pathfinding Adventure")
 
 # Node class for Dijkstra's algorithm
 class Node:
@@ -93,7 +90,7 @@ def draw_grid():
         for j in range(COLS):
             pygame.draw.line(screen, GREY, (j * CELL_WIDTH, 0), (j * CELL_WIDTH, HEIGHT))
 
-def main():
+def start_the_game():
     grid = [[Node(i, j) for j in range(COLS)] for i in range(ROWS)]
 
     for row in grid:
@@ -123,19 +120,19 @@ def main():
                 node = grid[row][col]
                 if not start and node != end:
                     start = node
-                    start.color = GREEN
+                    start.color = "#00ff99"
                 elif not end and node != start:
                     end = node
-                    end.color = RED
+                    end.color = "#ff0000"
                 elif node != end and node != start:
                     node.wall = True
-                    node.color = BLACK
+                    node.color = "#000000"
             elif pygame.mouse.get_pressed()[2]:  # Right-click
                 pos = pygame.mouse.get_pos()
                 row, col = pos[1] // CELL_HEIGHT, pos[0] // CELL_WIDTH
                 node = grid[row][col]
                 node.wall = False
-                node.color = WHITE
+                node.color = "#ffffff"
                 if node == start:
                     start = None
                 elif node == end:
@@ -154,6 +151,46 @@ def main():
                     for row in grid:
                         for node in row:
                             node.add_neighbors(grid)
+
+def main():
+    # Create a custom theme
+    theme = pygame_menu.themes.THEME_SOLARIZED.copy()
+    theme.title_font = pygame_menu.font.FONT_COMIC_NEUE
+    theme.title_font_size = 50
+    theme.widget_font = pygame_menu.font.FONT_COMIC_NEUE
+    theme.widget_font_size = 30
+    theme.background_color = "#a6d7ff"
+    theme.title_background_color = "#3a78ab"
+    theme.title_font_color = "#000000"
+    theme.widget_font_color = "#000000"
+    theme.selection_color = "#ff0000"
+
+    # Create the menu
+    menu = pygame_menu.Menu('Pathfinding Adventure', WIDTH, HEIGHT, theme=theme)
+
+    menu.add.label("Instructions:")
+    menu.add.label("Left-click to place start (green) and end (red) points.")
+    menu.add.label("Left-click on cells to create walls (black).")
+    menu.add.label("Right-click on cells to remove walls.")
+    menu.add.label("Press SPACE to find the shortest path (blue).")
+    menu.add.label("Press 'R' to reset the grid.")
+    menu.add.button('Start Game', start_the_game)
+    menu.add.button('Quit', pygame_menu.events.EXIT)
+
+    # Main loop
+    while True:
+        #screen.fill(AZURE)
+        events = pygame.event.get()
+        for event in events:
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+
+        if menu.is_enabled():
+            menu.update(events)
+            menu.draw(screen)
+
+        pygame.display.update()
 
 if __name__ == "__main__":
     main()
