@@ -110,7 +110,10 @@ def start_the_game():
     block_counter = 0  # Counter for user-placed blocks
     path_length_dijkstra = 0 # Counter for shortes path
 
+    # flags
     dijkstra_was_calculated = False
+    game_ended = False
+    player_wins = False
 
 
     running = True
@@ -131,8 +134,30 @@ def start_the_game():
             length_text = FONT.render("Shortest path length: " + str(path_length_dijkstra - 1), True, (0, 0, 0))
             screen.blit(length_text, (520, 10))
 
-
         pygame.display.update()
+
+        if game_ended:
+            if player_wins: 
+                pygame_menu.events.PAUSE = True
+                win_text = BIG_FONT.render("Congratulations! :)", True, (0, 255, 0))
+                win_text2 = BIG_FONT.render("You beat the computer", True, (0, 255, 0))
+
+                screen.blit(win_text, (WIDTH // 2 - 150, HEIGHT // 2 - 50))
+                screen.blit(win_text2, (WIDTH // 2 - 200, HEIGHT // 2))
+
+                pygame.time.wait(2000)  
+
+                pygame.display.update()
+            else:
+                pygame_menu.events.PAUSE = True
+                lose_text = BIG_FONT.render("You Lose! :(", True, (255, 0, 0))
+                lose_text2 = BIG_FONT.render("The computer won", True, (255, 0, 0))
+                screen.blit(lose_text, (WIDTH // 2 - 80, HEIGHT // 2 - 50))
+                screen.blit(lose_text2, (WIDTH // 2 - 150, HEIGHT // 2))
+
+                pygame.display.update()
+                
+                pygame.time.wait(2000) 
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -169,6 +194,8 @@ def start_the_game():
                             current = current.previous
 
                         dijkstra_was_calculated = True
+                        game_ended = True 
+                        player_wins= True if block_counter == path_length_dijkstra - 1 else False # assumes that the shortest path will always be found by the computer
 
 
 def main():
