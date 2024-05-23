@@ -96,6 +96,10 @@ def draw_grid():
             pygame.draw.line(screen, "#8c8c8c", (j * CELL_WIDTH, 0), (j * CELL_WIDTH, HEIGHT))
 
 
+def is_neighbour(node1, node2):
+    return abs(node1.row - node2.row) + abs(node1.col - node2.col) == 1
+
+
 def start_the_game():
     grid = [[Node(i, j) for j in range(COLS)] for i in range(ROWS)]
 
@@ -107,7 +111,7 @@ def start_the_game():
     end = random.choice(random.choice(grid))
 
 
-    while end == start:
+    while end == start or is_neighbour(start, end):
         end = random.choice(random.choice(grid))
 
     start.color = "#00ff99"
