@@ -15,6 +15,7 @@ Der Spieler sieht ein Feld mit 20x20 Blöcken. Zwei dieser Blöcke sind gefärbt
 - Press R macht leider noch nichts, sollte das Feld neu laden und alles zurücksetzen.
 - vll unnötige komplizierte Sachen einfacher gestalten
 - vll im README ein paar Bilder einfügen vom Game-Verlauf so als Beispiele
+- Optional bzw. to be dicussed: Erweiterung durch mehrere Knoten, damit der Dijkstra auch wirklich Sinn hat
 
 ## Benötigte Module
 Folgende Module müssen installiert werden, um das volle Spielerlebnis zu genießen:
