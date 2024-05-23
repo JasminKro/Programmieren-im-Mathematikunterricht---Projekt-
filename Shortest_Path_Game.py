@@ -21,6 +21,7 @@ BIG_FONT = pygame.font.SysFont('comic_sans', 36)
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Pathfinding Adventure")
 
+
 # Node class for Dijkstra's algorithm
 class Node:
     def __init__(self, row, col):
@@ -50,33 +51,35 @@ class Node:
     def __lt__(self, other):
         return self.distance < other.distance
 
+
 def dijkstra(grid, start, end):
     start.distance = 0
     pq = [(0, start)]
     visited = set()
-    
+
     while pq:
         current_distance, current_node = heapq.heappop(pq)
-        
+
         if current_node in visited:
             continue
-        
+
         visited.add(current_node)
-        
+
         if current_node == end:
             return True
-        
+
         for neighbor in current_node.neighbors:
             if neighbor in visited or neighbor.wall:
                 continue
-            
+
             new_distance = current_node.distance + 1
             if new_distance < neighbor.distance:
                 neighbor.distance = new_distance
                 neighbor.previous = current_node
                 heapq.heappush(pq, (new_distance, neighbor))
-                
+
     return False
+
 
 def reconstruct_path(end):
     current = end
@@ -85,11 +88,13 @@ def reconstruct_path(end):
         if current.color != "#00ff99" and current.color != "#ff0000":
             current.color = "#edffba"
 
+
 def draw_grid():
     for i in range(ROWS):
         pygame.draw.line(screen, "#8c8c8c", (0, i * CELL_HEIGHT), (WIDTH, i * CELL_HEIGHT))
         for j in range(COLS):
             pygame.draw.line(screen, "#8c8c8c", (j * CELL_WIDTH, 0), (j * CELL_WIDTH, HEIGHT))
+
 
 def start_the_game():
     grid = [[Node(i, j) for j in range(COLS)] for i in range(ROWS)]
@@ -100,7 +105,8 @@ def start_the_game():
 
     start = random.choice(random.choice(grid))
     end = random.choice(random.choice(grid))
-    
+
+
     while end == start:
         end = random.choice(random.choice(grid))
 
@@ -108,13 +114,12 @@ def start_the_game():
     end.color = "#ff0000"
 
     block_counter = 0  # Counter for user-placed blocks
-    path_length_dijkstra = 0 # Counter for shortes path
+    path_length_dijkstra = 0  # Counter for shortes path
 
     # flags
     dijkstra_was_calculated = False
     game_ended = False
     player_wins = False
-
 
     running = True
 
@@ -129,7 +134,7 @@ def start_the_game():
         block_text = FONT.render("Blocks placed: " + str(block_counter), True, (0, 0, 0))
         screen.blit(block_text, (10, 10))
 
-        if dijkstra_was_calculated: 
+        if dijkstra_was_calculated:
             # Display the length of the shortest path
             length_text = FONT.render("Shortest path length: " + str(path_length_dijkstra - 1), True, (0, 0, 0))
             screen.blit(length_text, (520, 10))
@@ -137,7 +142,7 @@ def start_the_game():
         pygame.display.update()
 
         if game_ended:
-            if player_wins: 
+            if player_wins:
                 pygame_menu.events.PAUSE = True
                 win_text = BIG_FONT.render("Congratulations! :)", True, (0, 255, 0))
                 win_text2 = BIG_FONT.render("You beat the computer", True, (0, 255, 0))
@@ -145,7 +150,7 @@ def start_the_game():
                 screen.blit(win_text, (WIDTH // 2 - 150, HEIGHT // 2 - 50))
                 screen.blit(win_text2, (WIDTH // 2 - 200, HEIGHT // 2))
 
-                pygame.time.wait(2000)  
+                pygame.time.wait(2000)
 
                 pygame.display.update()
             else:
@@ -156,8 +161,8 @@ def start_the_game():
                 screen.blit(lose_text2, (WIDTH // 2 - 150, HEIGHT // 2))
 
                 pygame.display.update()
-                
-                pygame.time.wait(2000) 
+
+                pygame.time.wait(2000)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -194,8 +199,10 @@ def start_the_game():
                             current = current.previous
 
                         dijkstra_was_calculated = True
-                        game_ended = True 
-                        player_wins= True if block_counter == path_length_dijkstra - 1 else False # assumes that the shortest path will always be found by the computer
+                        game_ended = True
+                        player_wins = True if block_counter == path_length_dijkstra - 1 else False  # assumes that the shortest path will always be found by the computer
+                if event.key == pygame.K_r:
+                    start_the_game()
 
 
 def main():
@@ -216,7 +223,7 @@ def main():
     menu.add.label("Your task is to find the shortest path between")
     menu.add.label("the red and the green block! Try to find the shortest")
     menu.add.label("path and beat the computer.")
-    
+
     menu.add.label(" ")
     menu.add.label("Instructions:")
     menu.add.label("Left-click on cells to create walls (black).")
@@ -234,11 +241,13 @@ def main():
                 pygame.quit()
                 sys.exit()
 
+
         if menu.is_enabled():
             menu.update(events)
             menu.draw(screen)
 
         pygame.display.update()
+
 
 if __name__ == "__main__":
     main()
