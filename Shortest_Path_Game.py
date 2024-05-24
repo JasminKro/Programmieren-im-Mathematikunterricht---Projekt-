@@ -67,8 +67,8 @@ def dijkstra(grid, start, end):
             return True # we found a path from start to end
         
         for neighbor in current_node.neighbors:
-            if neighbor in visited or neighbor.wall:
-                continue # ignore all nodes, I´ve already visited, and nodes I cannot visit
+            if neighbor in visited: 
+                continue # ignore all nodes, I´ve already visited
             
             new_distance = current_node.distance + 1
             if new_distance < neighbor.distance:
@@ -181,12 +181,12 @@ def start_the_game():
                     node.color = "#ffffff"
                     block_counter -= 1  # Decrement block counter
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_SPACE:
+                if event.key == pygame.K_SPACE: # Display shortest path
                     for row in grid:
                         for node in row:
                             node.add_neighbors(grid)
-                    if dijkstra(grid, start, end): # a shortest path was found
-                        reconstruct_path(end) # draw the path on grid 
+                    if dijkstra(grid, start, end): # A shortest path was found
+                        reconstruct_path(end) # Draw the path on grid 
 
                         # Calculate the length of the shortest path
                         current = end
@@ -196,9 +196,9 @@ def start_the_game():
 
                         dijkstra_was_calculated = True
                         game_ended = True 
-                        player_wins= True if block_counter == path_length_dijkstra - 1 else False # assumes that the shortest path will always be found by the computer
+                        player_wins= True if block_counter == path_length_dijkstra - 1 else False # Assumes that the shortest path will always be found by the computer
 
-                if event.key == pygame.K_r:
+                if event.key == pygame.K_r: # Reset game
                     start_the_game()
 
 
