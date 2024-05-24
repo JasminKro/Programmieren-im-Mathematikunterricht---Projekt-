@@ -1,6 +1,6 @@
 ''' 
 Pathfinding Adventure Game
-Authors: Manfred Trauner, Philip Hallwirth, Jasmin Kropshofer
+Authors: Philip Hallwirth, Jasmin Kropshofer, Manfred Trauner
 
 This program implements a simple pathfinding adventure game using Pygame. 
 The player's task is to find the shortest path between a red and a green block. 
