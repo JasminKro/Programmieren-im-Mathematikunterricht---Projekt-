@@ -1,11 +1,11 @@
 # Programmieren im Mathematikunterricht - Projekt
 
-Dies ist das GitHub-Repository für die Implementierung des Projekts für das Fach "Programmieren im Mathematikunterricht"! Implementiert wurde ein kleines Spiel, bei der ein Spieler den kürzesten Pfad zwischen zwei Punkten finden muss. 
+Dies ist das GitHub-Repository für die Implementierung des Projekts für das Fach "Programmieren im Mathematikunterricht"! Implementiert wurde ein kleines Spiel in Python, bei der ein Spieler den kürzesten Pfad zwischen zwei Punkten finden muss. 
 
 ## Ersteller
-- Manfred Trauner
 - Philip Hallwirth
 - Jasmin Kropshofer
+- Manfred Trauner
 
 ## Spielprinzip
 Der Spieler sieht ein Feld mit 20x20 Blöcken. Zwei dieser Blöcke sind gefärbt, einer grün und der andere rot. Diese Felder markieren den Start- und den Endpunkt. Das Ziel ist es, den kürzesten Weg zwischen Start- und Endpunkt zu finden, indem man per Mausklick Blöcke setzt. Dabei ist es nur erlaubt, nach rechts, links, oben und unten Blöcke zu setzen. Einen Weg diagonal setzen, ist also nicht zulässig. Drückt man die SPACE Taste, dann wird der tatsächliche kürzeste Pfad berechnet. Hat der Spieler einen Pfad gefunden, der genauso lang ist wie der tatsächliche kürzeste Pfad, dann gewinnt der Spieler und eine entsprechende Meldung erscheint. Gelingt es dem Spieler nicht, den kürzesten Pfad zu finden, oder setzt er zu wenig Blöcke, dann verliert er leider. 
