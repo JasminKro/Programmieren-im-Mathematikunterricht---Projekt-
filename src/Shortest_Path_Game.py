@@ -30,8 +30,8 @@ CELL_WIDTH = WIDTH // COLS
 CELL_HEIGHT = HEIGHT // ROWS
 
 # Fonts
-FONT = pygame.font.SysFont('comic_sans', 24)
-BIG_FONT = pygame.font.SysFont('comic_sans', 36)
+FONT = pygame.font.SysFont('Segoe UI Emoji', 24)
+BIG_FONT = pygame.font.SysFont('Segoe UI Emoji', 36)
 
 # Initialize the screen
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
@@ -110,6 +110,37 @@ def draw_grid():
         for j in range(COLS):
             pygame.draw.line(screen, "#8c8c8c", (j * CELL_WIDTH, 0), (j * CELL_WIDTH, HEIGHT))
 
+def game_end(player_wins):
+    if player_wins:
+        display_message("Congratulations!", "You found the shortest path! 😊", (0, 255, 0), (0, 255, 0))
+    else:
+        display_message("You Lose! 😔", "The computer found a shorter path.", (255, 0, 0), (255, 0, 0))
+
+# Function to display a message in a separate window
+def display_message(message1, message2, color1, color2):
+    # Create a new window for the message
+    message_screen = pygame.display.set_mode((WIDTH, HEIGHT))
+    pygame.display.set_caption("Game Result")
+
+    # Render the messages
+    message_text1 = BIG_FONT.render(message1, True, color1)
+    message_text2 = BIG_FONT.render(message2, True, color2)
+
+    # Fill the background with black
+    message_screen.fill((0, 0, 0))
+
+    # Blit the messages onto the screen
+    message_screen.blit(message_text1, (WIDTH // 2 - 300, HEIGHT // 2 - 50))
+    message_screen.blit(message_text2, (WIDTH // 2 - 300, HEIGHT // 2))
+
+    # Update the display
+    pygame.display.update()
+
+    # Wait for a few seconds before closing
+    pygame.time.wait(2000)
+
+    start_the_game()
+
 # Function to start the game
 def start_the_game():
     grid = [[Node(i, j) for j in range(COLS)] for i in range(ROWS)]
@@ -160,19 +191,19 @@ def start_the_game():
         if game_ended:
             if player_wins: 
                 pygame_menu.events.PAUSE = True
-                win_text = BIG_FONT.render("Congratulations! :)", True, (0, 255, 0))
-                win_text2 = BIG_FONT.render("You beat the computer", True, (0, 255, 0))
+                win_text = BIG_FONT.render("Congratulations!", True, (0, 255, 0))
+                win_text2 = BIG_FONT.render("You found the shortest path!😊", True, (0, 255, 0))
 
-                screen.blit(win_text, (WIDTH // 2 - 150, HEIGHT // 2 - 50))
-                screen.blit(win_text2, (WIDTH // 2 - 200, HEIGHT // 2))
+                screen.blit(win_text, (WIDTH // 2 - 300, HEIGHT // 2 - 50))
+                screen.blit(win_text2, (WIDTH // 2 - 300, HEIGHT // 2))
 
                 pygame.display.update()
 
                 pygame.time.wait(2000)  
             else:
                 pygame_menu.events.PAUSE = True
-                lose_text = BIG_FONT.render("You Lose! :(", True, (255, 0, 0))
-                lose_text2 = BIG_FONT.render("The computer won", True, (255, 0, 0))
+                lose_text = BIG_FONT.render("You Lose! 😔", True, (255, 0, 0))
+                lose_text2 = BIG_FONT.render("The computer found a shorter path", True, (255, 0, 0))
                 screen.blit(lose_text, (WIDTH // 2 - 80, HEIGHT // 2 - 50))
                 screen.blit(lose_text2, (WIDTH // 2 - 150, HEIGHT // 2))
 
@@ -218,6 +249,7 @@ def start_the_game():
                         dijkstra_was_calculated = True
                         game_ended = True 
                         player_wins= True if block_counter == path_length_dijkstra - 1 else False # Assumes that the shortest path will always be found by the computer
+                        game_end(player_wins)
 
                 if event.key == pygame.K_r: # Reset game
                     start_the_game()
