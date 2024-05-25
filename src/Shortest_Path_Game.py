@@ -32,6 +32,7 @@ CELL_HEIGHT = HEIGHT // ROWS
 # Fonts
 FONT = pygame.font.SysFont('Segoe UI Emoji', 24)
 BIG_FONT = pygame.font.SysFont('Segoe UI Emoji', 36)
+END_FONT = pygame.font.SysFont('Segoe UI Emoji', 20)
 
 # Initialize the screen
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
@@ -112,34 +113,43 @@ def draw_grid():
 
 def game_end(player_wins):
     if player_wins:
-        display_message("Congratulations!", "You found the shortest path! 😊", (0, 255, 0), (0, 255, 0))
+        display_message("Congratulations!", "You found the shortest path! 😊", (0, 255, 0), (0, 255, 0),5)
     else:
-        display_message("You Lose! 😔", "The computer found a shorter path.", (255, 0, 0), (255, 0, 0))
+        display_message("You Lose! 😔", "The computer found a shorter path.", (255, 0, 0), (255, 0, 0),5)
 
-# Function to display a message in a separate window
-def display_message(message1, message2, color1, color2):
+# Function to display a message in a separate window with countdown
+def display_message(message1, message2, color1, color2, countdown):
     # Create a new window for the message
     message_screen = pygame.display.set_mode((WIDTH, HEIGHT))
     pygame.display.set_caption("Game Result")
 
-    # Render the messages
-    message_text1 = BIG_FONT.render(message1, True, color1)
-    message_text2 = BIG_FONT.render(message2, True, color2)
+    # Timer for countdown
+    start_ticks = pygame.time.get_ticks()
+    
+    running = True
+    while running:
+        seconds = (pygame.time.get_ticks() - start_ticks) // 1000  # Calculate how many seconds passed
+        remaining_time = countdown - seconds
 
-    # Fill the background with black
-    message_screen.fill((0, 0, 0))
+        # Render the messages
+        message_text1 = BIG_FONT.render(message1, True, color1)
+        message_text2 = BIG_FONT.render(message2, True, color2)
+        countdown_text = BIG_FONT.render(f"Closing in {remaining_time}...", True, (255, 255, 255))
 
-    # Blit the messages onto the screen
-    message_screen.blit(message_text1, (WIDTH // 2 - 300, HEIGHT // 2 - 50))
-    message_screen.blit(message_text2, (WIDTH // 2 - 300, HEIGHT // 2))
+        # Fill the background with black
+        message_screen.fill((0, 0, 0))
 
-    # Update the display
-    pygame.display.update()
+        # Blit the messages onto the screen
+        message_screen.blit(message_text1, (WIDTH // 2 - 300, HEIGHT // 2 - 50))
+        message_screen.blit(message_text2, (WIDTH // 2 - 300, HEIGHT // 2))
+        message_screen.blit(countdown_text, (WIDTH // 2 - 300, HEIGHT // 2 + 50))
 
-    # Wait for a few seconds before closing
-    pygame.time.wait(2000)
+        # Update the display
+        pygame.display.update()
 
-    start_the_game()
+        # Check if countdown has reached zero
+        if remaining_time <= 0:
+            running = False
 
 # Function to start the game
 def start_the_game():
@@ -189,27 +199,15 @@ def start_the_game():
         pygame.display.update()
 
         if game_ended:
-            if player_wins: 
-                pygame_menu.events.PAUSE = True
-                win_text = BIG_FONT.render("Congratulations!", True, (0, 255, 0))
-                win_text2 = BIG_FONT.render("You found the shortest path!😊", True, (0, 255, 0))
+            text = END_FONT.render("Your solution and the solution the PC found!", True, (0, 0, 0))
+            text2 = END_FONT.render("Press R to reset the game!😊", True, (0, 0, 0))
 
-                screen.blit(win_text, (WIDTH // 2 - 300, HEIGHT // 2 - 50))
-                screen.blit(win_text2, (WIDTH // 2 - 300, HEIGHT // 2))
+            screen.blit(text, (WIDTH // 2 - 400, HEIGHT // 2 - 350))
+            screen.blit(text2, (WIDTH // 2 - 400, HEIGHT // 2 - 300))
 
-                pygame.display.update()
+            pygame.display.update()
 
-                pygame.time.wait(2000)  
-            else:
-                pygame_menu.events.PAUSE = True
-                lose_text = BIG_FONT.render("You Lose! 😔", True, (255, 0, 0))
-                lose_text2 = BIG_FONT.render("The computer found a shorter path", True, (255, 0, 0))
-                screen.blit(lose_text, (WIDTH // 2 - 80, HEIGHT // 2 - 50))
-                screen.blit(lose_text2, (WIDTH // 2 - 150, HEIGHT // 2))
-
-                pygame.display.update()
-                
-                pygame.time.wait(2000) 
+            pygame.time.wait(2000)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT: # Terminate program
