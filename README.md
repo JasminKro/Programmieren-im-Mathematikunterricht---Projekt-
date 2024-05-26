@@ -14,16 +14,16 @@ Der Spieler sieht ein Feld mit 20x20 Blöcken. Zwei dieser Blöcke sind gefärbt
 Natürlich ist das Spiel so, wie es aktuell ist, recht simpel und man kann leicht gegen den Computer gewinnen. Es wäre also durchaus spannender, mehrere Knoten hinzuzufügen, die man auf seinem Weg nutzen muss, um zum Ende zu kommen, damit das Spiel schwieriger wird und der Dijkstra auch tatsächlich mehr Sinn ergibt. Leider ist das etwas außerhalb des Rahmens für das Projekt, weshalb das hier nicht implementiert wurde. 
 
 ## Todo
-- Die Ausgabe, ob gewonnen/verloren wurde sollte noch schöner/ausführlicher gestaltet werden (also der Text; zB "Congratulations! You found the shortest path and beat the computer" und vll wieder ein Emoji oder so)
 - vll unnötige komplizierte Sachen einfacher gestalten
-- vll im README ein paar Bilder einfügen vom Game-Verlauf so als Beispiele
-- Optional bzw. to be dicussed: Erweiterung durch mehrere Knoten, damit der Dijkstra auch wirklich Sinn hat (wenn, dann oberen Text umformulieren)
+- vll im README ein paar Bilder einfügen vom Game-Verlauf so als Beispiele --> kann ich gern noch machen am ende, will ich aber nicht machen, bevor nicht sicher ist, ob nicht doch noch änderungen durchgeführt werden
+- Optional bzw. to be dicussed: Erweiterung durch mehrere Knoten, damit der Dijkstra auch wirklich Sinn hat (wenn, dann oberen Text umformulieren) --> wäre auf jeden fall toll(!), aber ist für die abgabe denke ich schon zu viel aufwand
 
 
 ## Done
 - Press R macht leider noch nichts, sollte das Feld neu laden und alles zurücksetzen.
 - Ich bin mir noch unsicher, ob der Dijkstra 100% korrekt arbeitet --> dürfte noch nicht zu hundert prozent funktionieren: ![Game Example](images/15bigger17.jpg)
 konnte allerdings noch kein Problem finden, es dürfte allerdings daran liegen, dass der Algorithmus am falschen Punkt beginnt -> geht jetzt, da der user input überschrieben wird
+- Die Ausgabe, ob gewonnen/verloren wurde sollte noch schöner/ausführlicher gestaltet werden (also der Text; zB "Congratulations! You found the shortest path and beat the computer" und vll wieder ein Emoji oder so) --> habe das "beat" entfernt, der spieler hat ja eig. nicht die chance den pc zu "beaten" und das end design  überarbeitet
 
 ## Benötigte Module
 Folgende Module müssen installiert werden, um das volle Spielerlebnis zu genießen:
