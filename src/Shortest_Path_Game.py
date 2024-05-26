@@ -151,6 +151,10 @@ def display_message(message1, message2, color1, color2, countdown):
         if remaining_time <= 0:
             running = False
 
+
+def are_neighbors(node1, node2):
+    return (node1.row == node2.row and abs(node1.col - node2.col) == 1) or (node1.col == node2.col and abs(node1.row - node2.row) == 1)
+
 # Function to start the game
 def start_the_game():
     grid = [[Node(i, j) for j in range(COLS)] for i in range(ROWS)]
@@ -163,7 +167,7 @@ def start_the_game():
     start = random.choice(random.choice(grid))
     end = random.choice(random.choice(grid))
     
-    while end == start:
+    while end == start or are_neighbors(end, start):
         end = random.choice(random.choice(grid))
 
     start.color = "#00ff99"
