@@ -23,7 +23,7 @@ Natürlich ist das Spiel so, wie es aktuell ist, recht simpel und man kann leich
 - Press R macht leider noch nichts, sollte das Feld neu laden und alles zurücksetzen.
 - Ich bin mir noch unsicher, ob der Dijkstra 100% korrekt arbeitet --> dürfte noch nicht zu hundert prozent funktionieren: ![Game Example](images/15bigger17.jpg)
 konnte allerdings noch kein Problem finden, es dürfte allerdings daran liegen, dass der Algorithmus am falschen Punkt beginnt -> geht jetzt, da der user input überschrieben wird
-- Die Ausgabe, ob gewonnen/verloren wurde sollte noch schöner/ausführlicher gestaltet werden (also der Text; zB "Congratulations! You found the shortest path and beat the computer" und vll wieder ein Emoji oder so) --> habe das "beat" entfernt, der spieler hat ja eig. nicht die chance den pc zu "beaten" und das end design  überarbeitet
+- Die Ausgabe, ob gewonnen/verloren wurde sollte noch schöner/ausführlicher gestaltet werden (also der Text; zB "Congratulations! You found the shortest path and beat the computer" und vll wieder ein Emoji oder so) --> habe das "beat" entfernt, der spieler hat ja eig. nicht die chance den pc zu "beaten" und das end design  überarbeitet -> habs nochmal bissl angepasst
 
 ## Benötigte Module
 Folgende Module müssen installiert werden, um das volle Spielerlebnis zu genießen:

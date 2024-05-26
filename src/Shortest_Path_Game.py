@@ -113,9 +113,9 @@ def draw_grid():
 
 def game_end(player_wins):
     if player_wins:
-        display_message("Congratulations!", "You found the shortest path! 😊", (0, 255, 0), (0, 255, 0),5)
+        display_message("Congratulations!", "You found the shortest path! 🏆😊", (0, 255, 0), (0, 255, 0),5)
     else:
-        display_message("You Lose! 😔", "The computer found a shorter path.", (255, 0, 0), (255, 0, 0),5)
+        display_message("You Lose! 😔🏳️", "The computer found a better path.", (255, 0, 0), (255, 0, 0),5)
 
 # Function to display a message in a separate window with countdown
 def display_message(message1, message2, color1, color2, countdown):
@@ -134,10 +134,10 @@ def display_message(message1, message2, color1, color2, countdown):
         # Render the messages
         message_text1 = BIG_FONT.render(message1, True, color1)
         message_text2 = BIG_FONT.render(message2, True, color2)
-        countdown_text = BIG_FONT.render(f"Closing in {remaining_time}...", True, (255, 255, 255))
+        countdown_text = BIG_FONT.render(f"Results shown in {remaining_time}...", True, (255, 255, 255))
 
         # Fill the background with black
-        message_screen.fill((0, 0, 0))
+        message_screen.fill("#a6d7ff")
 
         # Blit the messages onto the screen
         message_screen.blit(message_text1, (WIDTH // 2 - 300, HEIGHT // 2 - 50))
@@ -203,11 +203,11 @@ def start_the_game():
         pygame.display.update()
 
         if game_ended:
-            text = END_FONT.render("Your solution and the solution the PC found!", True, (0, 0, 0))
-            text2 = END_FONT.render("Press R to reset the game!😊", True, (0, 0, 0))
+            text = END_FONT.render("Your solution compared to the solution the PC found:", True, (0, 0, 0))
+            text2 = END_FONT.render("Press R to reset the game!🎮", True, (0, 0, 0))
 
-            screen.blit(text, (WIDTH // 2 - 400, HEIGHT // 2 - 350))
-            screen.blit(text2, (WIDTH // 2 - 400, HEIGHT // 2 - 300))
+            screen.blit(text, (WIDTH // 1.95 - 400, HEIGHT // 2 - 340))
+            screen.blit(text2, (WIDTH // 1.95 - 400, HEIGHT // 2 - 300))
 
             pygame.display.update()
 
