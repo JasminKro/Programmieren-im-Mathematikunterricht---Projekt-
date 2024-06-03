@@ -16,15 +16,15 @@ Natürlich ist das Spiel so, wie es aktuell ist, recht simpel und man kann leich
 ## Einblicke ins Spiel
 Im Startbildschirm erhält der Spieler Instruktionen darüber, welche Tasen welche Befehle bedingen. 
 
-![Game Example](images/start_menu.jpg)
+<img src="images/start_menu.jpg" alt="Game Example" width="500">
 
 Drückt der Spieler auf Start öffnet sich das Spielfeld mit verschiedenen Hindernissen. Der Spieler muss nun den kürzesten weg zwischen grünem und rotem Block finden durch setzen von Blöcken. Durch Hindernisse kann der Spieler nicht hindurch gehen. 
 
-![Game Example](images/game_run1.jpg)
+<img src="images/game_run1.jpg" alt="Game Example" width="500">
 
 Drückt der Spieler nun die SPACE-Taste, dann erfährt er, ob er den tatsächlichen kürzesten Weg gefunden hat oder ob der Computer besser war.
 
-![Game Example](images/game_run2.jpg)
+<img src="images/game_run2.jpg" alt="Game Example" width="500">
 
 ## Benötigte Module
 Folgende Module müssen installiert werden, um das volle Spielerlebnis zu genießen:
