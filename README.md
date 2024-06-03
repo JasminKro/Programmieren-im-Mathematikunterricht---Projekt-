@@ -14,8 +14,17 @@ Der Spieler sieht ein Feld mit 20x20 Blöcken. Zwei dieser Blöcke sind gefärbt
 Natürlich ist das Spiel so, wie es aktuell ist, recht simpel und man kann leicht gegen den Computer gewinnen. Es wäre also durchaus spannender, mehrere Knoten hinzuzufügen, die man auf seinem Weg nutzen muss, um zum Ende zu kommen, damit das Spiel schwieriger wird und der Dijkstra auch tatsächlich mehr Sinn ergibt. Leider ist das etwas außerhalb des Rahmens für das Projekt, weshalb das hier nicht implementiert wurde. 
 
 ## Einblicke ins Spiel
-TODO: Bilder einfügen
-![Game Example](images/15bigger17.jpg)
+Im Startbildschirm erhält der Spieler Instruktionen darüber, welche Tasen welche Befehle bedingen. 
+
+![Game Example](images/start_menu.jpg)
+
+Drückt der Spieler auf Start öffnet sich das Spielfeld mit verschiedenen Hindernissen. Der Spieler muss nun den kürzesten weg zwischen grünem und rotem Block finden durch setzen von Blöcken. Durch Hindernisse kann der Spieler nicht hindurch gehen. 
+
+![Game Example](images/game_run1.jpg)
+
+Drückt der Spieler nun die SPACE-Taste, dann erfährt er, ob er den tatsächlichen kürzesten Weg gefunden hat oder ob der Computer besser war.
+
+![Game Example](images/game_run2.jpg)
 
 ## Benötigte Module
 Folgende Module müssen installiert werden, um das volle Spielerlebnis zu genießen:
