@@ -30,3 +30,4 @@ Drückt der Spieler nun die SPACE-Taste, dann erfährt er, ob er den tatsächlic
 Folgende Module müssen installiert werden, um das volle Spielerlebnis zu genießen:
 - `pygame`
 - `pygame_menu`
+Die beste Herangehensweise wäre, eine virutelle Umgebung für die Installation zu verwenden (https://docs.python.org/3/library/venv.html)
